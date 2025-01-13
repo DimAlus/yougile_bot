@@ -1,4 +1,4 @@
-FROM python:3.10.5-slim-buster as base
+FROM python:3.10.5-slim-buster AS base
 
 RUN python -m pip install --upgrade pip
 COPY requirements.txt .
