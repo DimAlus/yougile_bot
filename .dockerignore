@@ -1,0 +1,9 @@
+.git
+.vim
+*__pycache__
+.Python
+env
+*.pyc
+*.pyo
+*.pyd
+*.env
