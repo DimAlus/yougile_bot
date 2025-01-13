@@ -139,7 +139,7 @@ def initialize_context():
   tasks: Dict[str, Dict] = {}
   for tsk in get_data_generator("tasks"):
     path = get_path(tsk)
-    if not path["col_title"].startswith("Идеи") and path["col_title"] != "???":
+    if (path["col_title"] not in config["notice"]["columns_ignore"]):
       tasks[tsk["id"]] = tsk
   
   _context["tasks"] = tasks
@@ -190,7 +190,7 @@ def compare_tasks(old_task: Dict, new_task: Dict):
   path = get_path(n)
   if (
       (not o.get("completed", False) and n.get("completed", False))  or 
-      (o.get("columnId", "") != n.get("columnId", "") and path["col_title"].startswith("Готово"))
+      (o.get("columnId", "") != n.get("columnId", "") and path["col_title"] in config["notice"]["columns_ready"])
   ):
     mes_apply_task(n)
     return
@@ -222,13 +222,13 @@ def update():
   for tsk in get_data_generator("tasks"):
     path = get_path(tsk)
     if tsk["id"] not in _context["tasks"]:
-      if not path["col_title"].startswith("Идеи") and path["col_title"] != "???":
-        if path["col_title"].startswith("Готово"):
+      if path["col_title"] not in config["notice"]["columns_ignore"]:
+        if path["col_title"] in config["notice"]["columns_ready"]:
           mes_apply_task(tsk)
         else:
           mes_create_task(tsk)
         _context["tasks"][tsk["id"]] = tsk
-    elif path["col_title"].startswith("Идеи") or path["col_title"] == "???":
+    elif path["col_title"] in config["notice"]["columns_ignore"]:
       mes_cancel_task(tsk)
       _context["tasks"].pop(tsk["id"])
     else:

@@ -10,4 +10,3 @@ WORKDIR    /app
 ENV SHELL=/bin/bash
 
 CMD ["python", "-u", "./main.py"]
-

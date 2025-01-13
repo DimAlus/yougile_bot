@@ -26,3 +26,15 @@ expad22="expadofficial@yandex.ru"
 update_columns_interval=180
 check_interval=15
 
+[notice]
+columns_ignore = [
+  "???",
+  "Идеи",
+  "Слухи"
+]
+tabs_ignore = [
+  "???"
+]
+columns_ready = [
+  "Готово"
+]
